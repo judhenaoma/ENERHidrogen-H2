@@ -51,23 +51,9 @@ const calcularValorMedio = (lista) => {
 
 function CapaPotencialEolico100 () {
 
-    const [ capa, setCapa ] = useState(true)
-    // useEffect(() => {
-    //     const query = ref(db, "/");
-    //     return onValue(query, (snapshot) => {
-    //       const data = snapshot.val();
-    //       console.log(data)
-    
-    //       if (snapshot.exists()) {
-    //         setCapa(data);
-    //       }
-    //     });
-    //   }, []);
 
   return (
     <>
-    {
-    capa && (
         <GeoJSON data={ velocidadViento100 } 
         style={ mapearEstilos }
         onEachFeature={(feature, layer) => {
@@ -80,7 +66,7 @@ function CapaPotencialEolico100 () {
                 <small><i>Velocidad de viento</i></small><br/>
                 <i>${etiqueta}</i><br/>
                 <hr class='my-3'/>
-                <form  onsubmit="ejecutarCalculoGeneracionEolica100(event, ${valorMedio})" >
+                <form  onsubmit="window.ejecutarCalculoGeneracionEolica100(event, ${valorMedio})" >
                     <div>
                         <label for="coef_maquina_100" class="block text-sm font-medium text-gray-700">Coeficiente de máquina (Adim.):</label>
                         <input id="coef_maquina_100" required name="coef_maquina_100" type="number" step="any" min="0" max="1" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -141,9 +127,6 @@ function CapaPotencialEolico100 () {
             }
         }}
         />
-    )
-    }
-
     <CajaLeyenda>
         <LeyendaMapa 
                     colors={generarGradienteV2(6)} 
