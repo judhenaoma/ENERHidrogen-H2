@@ -35,13 +35,13 @@ export const MapaDetalleSolar = ( {datosPunto} ) => {
         />
         <Marker position={coordenadasPunto}>
             <Popup>
-                <p><b>Demanda energía:</b> {demandaEnergia}</p>
-                <p><b>Municipio:</b> {municipio}</p>
-                <p><b>Radiación solar</b> {radiacion}</p>
-                <p><b>Potencia</b> {potencia}</p>
-                <p><b>Generación anual energía: </b> {generacionAnual}</p>
-                <p><b>Número paneles: </b> {numeroPaneles}</p>
-                <p><b>Área requerida: </b> {areaRequerida}</p>
+                <p className='whitespace-nowrap'><b>Demanda energía:</b> {demandaEnergia}</p>
+                <p className='whitespace-nowrap'><b>Municipio:</b> {municipio}</p>
+                <p className='whitespace-nowrap'><b>Radiación solar</b> {radiacion}</p>
+                <p className='whitespace-nowrap'><b>Potencia</b> {potencia}</p>
+                <p className='whitespace-nowrap'><b>Generación anual energía: </b> {generacionAnual}</p>
+                <p className='whitespace-nowrap'><b>Número paneles: </b> {numeroPaneles}</p>
+                <p className='whitespace-nowrap'><b>Área requerida: </b> {areaRequerida}</p>
             </Popup>
         </Marker>    
     </MapContainer>
