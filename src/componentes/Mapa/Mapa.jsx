@@ -11,7 +11,6 @@ import { CapaSubestacionTransmision } from './CapaSubestacionTransmision'
 import { CapaCentrales } from './CapaCentrales'
 import { CapaRadiacionSolar } from './CapaRadiacionSolar'
 import { CapaBrilloSolar } from './CapaBrilloSolar'
-// import { CapaVelocidadVientos } from './CapaVelocidadVientos'
 import { CapaRios } from './CapaRios'
 import { CapaPrecipitacion } from './CapaPrecipitacion'
 import { CapaParquesNal } from './CapaParquesNal'
@@ -32,24 +31,21 @@ function Mapa ({capas, potenciales}) {
 
     const centroAntioquia = [6.983327833476973, -75.28958388150659]
 
-
-
   useEffect(() => {
     document.getElementById("potenciales_energia").onmousedown = L.DomEvent.stopPropagation;
-
     }, [])
 
 
   return (
 
-    
+    <div className='w-10/12'>
+
+
     <MapContainer center={centroAntioquia} zoom={7}>
-     
         <TileLayer
             url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
             zoomControl={false}
         />
-    
             <GeoJSON
                 data={capaAntioquia}
                 style={{
@@ -60,7 +56,6 @@ function Mapa ({capas, potenciales}) {
 
                 }}
             />
-    
 
         {
             capas[0].children[0].activo ? 
@@ -206,6 +201,7 @@ function Mapa ({capas, potenciales}) {
         
 
     </MapContainer>
+    </div>
   )
 }
 

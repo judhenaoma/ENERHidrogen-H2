@@ -8,8 +8,6 @@ function Portals({children}){
         </div>,
         document.getElementById('portal')
     )
-
 }
-
 
 export { Portals }

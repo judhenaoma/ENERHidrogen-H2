@@ -15,7 +15,7 @@ import { RutasPrivadas } from './routes/RutasPrivadas'
 import { RutasPublicas } from './routes/RutasPublicas'
 import { useNavigate } from 'react-router-dom'
 import { Redirect_ } from './routes/Redirect'
-// import { Registros } from './pages/Registros/Registros'
+import { Registros } from './pages/Registros/Registros'
 
 
 function App() {
@@ -136,7 +136,7 @@ function App() {
         />
 
 
-      {/* <Route path='/registros' element={<Registros/>}/> */}
+      <Route path='/registros' element={<Registros/>}/>
 
       
         <Route path = '*' element = {<Redirect_ to = '/antioquia' />}/>

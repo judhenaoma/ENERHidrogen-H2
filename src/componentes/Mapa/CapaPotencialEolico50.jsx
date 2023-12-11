@@ -55,74 +55,86 @@ function CapaPotencialEolico50 () {
         <GeoJSON data={ velocidadViento50 } 
         style={ mapearEstilos }
         onEachFeature={(feature, layer) => {
+            layer.on({
+                click: (e) => {
+                    const valorMedio = calcularValorMedio(labels[feature.properties.gridcode])
+                    const etiqueta = construirEtiqueta(labels[feature.properties.gridcode])
+                    const { lat, lng } = e.latlng;
+                    const popupContent = `
+                        <div class='mx-auto w-80'>
+                            <small><i>Velocidad de viento</i></small><br/>
+                            <i>${etiqueta}</i><br/>
+                            <hr class='my-3'/>
+                            <form  onsubmit="window.ejecutarCalculoGeneracionEolica50(event, ${valorMedio})" >
+                                <div>
+                                    <label for="coef_maquina" class="block text-sm font-medium text-gray-700">Coeficiente de máquina (Adim.):</label>
+                                    <input id="coef_maquina" required name="coef_maquina" type="number" step="any" min="0" max="1" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
 
-            const etiqueta = construirEtiqueta(labels[feature.properties.gridcode])
-            const valorMedio = calcularValorMedio(labels[feature.properties.gridcode])
+                                <div class="mt-2">
+                                    <label for="diametro_rotor" class="block text-sm font-medium text-gray-700">Diametro rotor (m):</label>
+                                    <input id="diametro_rotor" required name="diametro_rotor" type="number" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                
+                                <div class="mt-2">
+                                    <label for="factor_planta_eo" class="block text-sm font-medium text-gray-700">Factor de planta (Adim.):</label>
+                                    <input id="factor_planta_eo" required name="factor_planta_eo" type="number" step="any" min="0" max="1" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div class="mt-2">
+                                    <label for="area_lote" class="block text-sm font-medium text-gray-700">Área del parque eólico (ha):</label>
+                                    <input id="area_lote" name="area_lote" type="number" step="any" min="0"  class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
 
-            const popupContent = `
-            <div class='mx-auto w-80'>
-                <small><i>Velocidad de viento</i></small><br/>
-                <i>${etiqueta}</i><br/>
-                <hr class='my-3'/>
-                <form  onsubmit="window.ejecutarCalculoGeneracionEolica50(event, ${valorMedio})" >
-                    <div>
-                        <label for="coef_maquina" class="block text-sm font-medium text-gray-700">Coeficiente de máquina (Adim.):</label>
-                        <input id="coef_maquina" required name="coef_maquina" type="number" step="any" min="0" max="1" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    </div>
+                                <button
+                                    type="submit"
+                                    class="mt-3 rounded bg-indigo-600 px-2 h-6 text-xs text-white shadow-sm outline-2 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    >
+                                    Calcular
+                                </button>
+                            </form>
 
-                    <div class="mt-2">
-                        <label for="diametro_rotor" class="block text-sm font-medium text-gray-700">Diametro rotor (m):</label>
-                        <input id="diametro_rotor" required name="diametro_rotor" type="number" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    </div>
-                    
-                    <div class="mt-2">
-                        <label for="factor_planta_eo" class="block text-sm font-medium text-gray-700">Factor de planta (Adim.):</label>
-                        <input id="factor_planta_eo" required name="factor_planta_eo" type="number" step="any" min="0" max="1" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    </div>
-                    <div class="mt-2">
-                        <label for="area_lote" class="block text-sm font-medium text-gray-700">Área del parque eólico (ha):</label>
-                        <input id="area_lote" name="area_lote" type="number" step="any" min="0"  class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    </div>
+                            <div id="resultado_eolica" class="mt-3 border border-green-400 shadow-md hidden">
+                                <div class="my-0 border border-gray-200 p-1">
+                                    <span id="titulo_potencia_eo" class="text-sm font-bold text-gray-900"></span><br/>
+                                    <span id="resultado_potencia_eo" class="text-sm text-gray-900 mx-auto"></span>
+                                </div>
+                                <div class="my-0 border border-gray-200 p-1">
+                                    <span id="titutlo_generacion_eo" class="text-sm font-bold text-gray-900"></span><br/>
+                                    <span id="resultado_generacion_eo" class="text-sm text-gray-900 mx-auto"></span> 
+                                </div>
 
-                    <button
-                        type="submit"
-                        class="mt-3 rounded bg-indigo-600 px-2 h-6 text-xs text-white shadow-sm outline-2 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                        Calcular
-                    </button>
-                </form>
+                                <div class="my-0 border border-gray-200 p-1">
+                                    <span id="titulo_aerogen" class="text-sm font-bold text-gray-900 whitespace-nowrap"></span> <br/>
+                                    <span id="resultado_aerogen" class="text-sm mx-auto text-gray-900"></span>
+                                </div>
 
-                <div id="resultado_eolica" class="mt-3 border border-green-400 shadow-md hidden">
-                    <div class="my-0 border border-gray-200 p-1">
-                        <span id="titulo_potencia_eo" class="text-sm font-bold text-gray-900"></span><br/>
-                        <span id="resultado_potencia_eo" class="text-sm text-gray-900 mx-auto"></span>
-                    </div>
-                    <div class="my-0 border border-gray-200 p-1">
-                        <span id="titutlo_generacion_eo" class="text-sm font-bold text-gray-900"></span><br/>
-                        <span id="resultado_generacion_eo" class="text-sm text-gray-900 mx-auto"></span> 
-                    </div>
-
-                    <div class="my-0 border border-gray-200 p-1">
-                        <span id="titulo_aerogen" class="text-sm font-bold text-gray-900 whitespace-nowrap"></span> <br/>
-                        <span id="resultado_aerogen" class="text-sm mx-auto text-gray-900"></span>
-                    </div>
-
-                    <div class="my-0 border border-gray-200 p-1">
-                        <span id="pot_parque_eolico" class="text-sm font-bold text-gray-900 whitespace-nowrap"></span>
-                        <span id="resultado_pot_parque_eolico" class="text-sm mx-auto text-gray-900"></span><br/>
-                        
-                    </div>
-                    <div class="my-0 border border-gray-200 p-1">
-                        <span id="gen_parque_eolico" class="text-sm font-bold text-gray-900 whitespace-nowrap"></span>
-                        <span id="resultado_gen_parque_eolico" class="text-sm mx-auto text-gray-900"></span>
-                    </div>
-                </div>
-            </div>
-            `;
-
-            if (feature.properties) {
-            layer.bindPopup(popupContent);
-            }
+                                <div class="my-0 border border-gray-200 p-1">
+                                    <span id="pot_parque_eolico" class="text-sm font-bold text-gray-900 whitespace-nowrap"></span>
+                                    <span id="resultado_pot_parque_eolico" class="text-sm mx-auto text-gray-900"></span><br/>
+                                    
+                                </div>
+                                <div class="my-0 border border-gray-200 p-1">
+                                    <span id="gen_parque_eolico" class="text-sm font-bold text-gray-900 whitespace-nowrap"></span>
+                                    <span id="resultado_gen_parque_eolico" class="text-sm mx-auto text-gray-900"></span>
+                                </div>
+                                <div class="mt-2 border border-gray-200 p-1">
+                                    <button
+                                        onclick="window.guardarRegistrosEolica50(${valorMedio}, ${lat}, ${lng})"
+                                        type="button"
+                                        class="mx-auto mt-3 rounded bg-indigo-600 px-2 h-6 text-xs text-white shadow-sm outline-2 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    >
+                                    Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    L.popup()
+                    .setLatLng([lat, lng])
+                    .setContent(popupContent)
+                    .openOn(e.target._map);
+                }
+            });
         }}
         />
  

@@ -3,9 +3,7 @@ import { MapContainer, TileLayer, GeoJSON, WMSTileLayer } from 'react-leaflet'
 
 
 import capaColombia from './../../capas/Colombia/Capa_Colombia.json'
-// import { CapaMunicipiosCol } from './CapaMunicipiosCol'
-
- 
+// import { CapaMunicipiosCol } from './CapaMunicipiosCol' 
 import { CapaLineasTrasmisionCol } from './CapaLineasTrasmisionCol'
 import { CapaSubestacionDistribucionCol } from './CapaSubestacionDistribucionCol'
 import { CapaSubestacionTransmisionCol } from './CapaSubestacionTransmisionCol'
@@ -25,13 +23,18 @@ import { CapaCuencasHidroCol } from './CapaCuencasHidroCol'
 import { ModalPortalNasa } from '../Ui/ModalPortalNasa'
 import { CapaRestriccionTotalCol } from './CapaRestriccionTotalCol'
 
+const centroAntioquia = [6.983327833476973, -75.28958388150659]
 
 function MapaColombia ({capas, manejarCapas }) {
 
-  const centroAntioquia = [6.983327833476973, -75.28958388150659]
+  const cerrarModalVientosNasa = () => {
+    manejarCapas('vientosNasa')
+  }    
 
   return (
 
+
+    <div className='w-10/12'>
     
     <MapContainer center={centroAntioquia} zoom={5}>
      
@@ -144,10 +147,10 @@ function MapaColombia ({capas, manejarCapas }) {
         {
             capas[4].children[0].activo
             // ? <PortalNasaVientos />
-            ? <ModalPortalNasa  manejarCapas = {manejarCapas} />
+            ? <ModalPortalNasa  cerrarModal = {cerrarModalVientosNasa} />
             : null
         }
-{/* 
+        {/* 
         {
             capas[6].children[0].activo
             // ? <PortalNasaVientos />
@@ -156,6 +159,7 @@ function MapaColombia ({capas, manejarCapas }) {
         } */}
 
     </MapContainer>
+    </div>
   )
 }
 

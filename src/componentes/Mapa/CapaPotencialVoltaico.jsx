@@ -57,12 +57,7 @@ const calcularValorMedio = (lista) => {
 }
 
 
-
 function CapaPotencialVoltaico () {
-
-    const [prueba, setPrueba] = useState(0)
-
-    console.log(prueba) 
 
   return (
     <>
@@ -71,7 +66,6 @@ function CapaPotencialVoltaico () {
         onEachFeature={(feature, layer) => {
             layer.on({
                 click: (e) => {
-                    setPrueba(50)
                     const valorMedio = calcularValorMedio(labels[feature.properties.gridcode])
                     const etiqueta = construirEtiqueta(labels[feature.properties.gridcode])
                     const { lat, lng } = e.latlng;
@@ -155,9 +149,7 @@ function CapaPotencialVoltaico () {
                     .openOn(e.target._map);
                     
                 }
-
             });
-
         }}
         />
 

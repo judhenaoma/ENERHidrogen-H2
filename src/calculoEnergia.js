@@ -63,7 +63,7 @@ function ejecutarCalculoGeneracionVoltaica(event, valorMedio) {
       tituloResultadoPaneles.innerHTML = "Número de paneles:"
       resultadoPaneles.innerHTML = `${numeroPaneles}`
       tituloResultadoArea.innerHTML = "Área requerida:"
-      resultadoArea.innerHTML = `${areaRequerida} m2`
+      resultadoArea.innerHTML = `${areaRequerida.toFixed(2)} m2`
     }
 
     const contenedorResultados = document.getElementById("resultado_foto")
