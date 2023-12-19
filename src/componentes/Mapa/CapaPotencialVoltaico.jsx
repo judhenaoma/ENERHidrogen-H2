@@ -96,8 +96,8 @@ function CapaPotencialVoltaico () {
                                 <input id="factor_planta" required name="factor_planta" type="number" step="any" min="0" max="1" class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                             </div>
                             <div class="mt-2">
-                                <label for="factor_planta" class="block text-sm font-medium text-gray-700">Potencia de panel fotovoltáico(Wp):</label>
-                                <input id="potencia_panel" name="potencia_panel" type="number" step="any" min="0"  class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <label for="potencia_panel" class="block text-sm font-medium text-gray-700">Potencia de panel fotovoltáico(Wp):</label>
+                                <input id="potencia_panel" placeholder="Opcional. Se puede ingresar luego" name="potencia_panel" type="number" step="any" min="0"  class="p-1 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                             </div>
                             <button
                                 type="submit"

@@ -52,7 +52,7 @@ function ejecutarCalculoGeneracionVoltaica(event, valorMedio) {
 
     if(potenciaPanel){
 
-      const numeroPaneles = Math.ceil(PpvKw / potenciaPanel)
+      const numeroPaneles = Math.ceil((PpvKw * 1000) / potenciaPanel)
       const areaRequerida = parseFloat(numeroPaneles * 2 * 1.7)
 
       const tituloResultadoPaneles = document.getElementById("titulo_paneles")
