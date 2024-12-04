@@ -9,6 +9,4 @@ function RutasPrivadas({ usuarioLogeado, children }) {
         </>
     );
 }
-     
-  
 export { RutasPrivadas }

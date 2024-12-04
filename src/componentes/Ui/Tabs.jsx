@@ -1,10 +1,10 @@
+import { Link } from 'react-router-dom'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
   
-function Tabs({ tabs, setTabs }) {
-  
+function Tabs({ tabs, setTabs, backButton = null  }) {
   const manejarCambioContenidoSmall = (e) =>{
       const tabsActualizados = tabs.map( tab => {
           if(tab.id === e.target.value){
@@ -37,11 +37,12 @@ function Tabs({ tabs, setTabs }) {
               }
           }
       })
+      
       setTabs(tabsActualizados)
-  }
+}
 
   return (
-    <div className="mx-auto mt-5 w-4/12">
+    <div className="mx-auto w-11/12">
       <div className="sm:hidden">
         <select
           id="tabs"
@@ -51,7 +52,7 @@ function Tabs({ tabs, setTabs }) {
           onChange = {manejarCambioContenidoSmall}
         >
           {tabs.map((tab) => (
-            <option value={tab.id} key={tab.id}>{tab.name}</option>
+            <option value={tab.id} disabled={true} key={tab.id}>{tab.name}</option>
           ))}
         </select>
       </div>

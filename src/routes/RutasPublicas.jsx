@@ -8,6 +8,4 @@ function RutasPublicas ({usuarioLogeado, children}) {
 
     return children
 }
-
-
 export { RutasPublicas }

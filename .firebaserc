@@ -1,5 +1,10 @@
 {
   "projects": {
-    "default": "modergis"
-  }
+    "default": "enerhidrogen",
+    "production": "enerhidrogen",
+    "n": "enerhidrogen",
+    "enerhidrogen": "enerhidrogen"
+  },
+  "targets": {},
+  "etags": {}
 }

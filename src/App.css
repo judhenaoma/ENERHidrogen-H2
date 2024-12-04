@@ -1,1 +1,40 @@
+.leaflet-popup-content-wrapper { 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+    /* min-width: 160px; */
+}
+
+.leaflet-popup-content {
+    /* width: auto !important; */
+    /* flex-grow: 1;
+    flex: 1 0 auto; */
+}
+
+
+/* Track */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #78716c; /* Customize the scrollbar handle color */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #292524; /* Customize the handle color on hover */
+  }
+  
+  /* Track on hover */
+  ::-webkit-scrollbar-track:hover {
+    background-color: #e2e8f0; /* Customize the track color on hover */
+  }
+  
+  /* Handle when it's actively being dragged */
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #1c1917; /* Customize the handle color when active */
+  }
 
