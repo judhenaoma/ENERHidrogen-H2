@@ -56,7 +56,7 @@ firebase-debug.log.*
 functions/node_modules/
 
 # Local build files (if using Firebase Hosting)
-public/
+public/*.html
 
 
 **/.dbConfig.js
